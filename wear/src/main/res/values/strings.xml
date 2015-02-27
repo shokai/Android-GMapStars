@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">GMapStars</string>
-    <string name="hello_round">Hello Round World!</string>
+    <string name="hello_round">丸ウェア</string>
     <string name="hello_square">Hello Square World!</string>
 
 </resources>

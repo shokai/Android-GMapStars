@@ -48,6 +48,19 @@ public class GooglePlayServicesActivity extends Activity implements
         if (savedInstanceState != null) {
             mIsInResolution = savedInstanceState.getBoolean(KEY_IN_RESOLUTION, false);
         }
+        Intent intent = this.getIntent();
+        Log.i(TAG, intent.getAction());
+        if(intent != null && intent.getAction().equals(Intent.ACTION_SEND)){
+            Log.i(TAG, "intent is action_send");
+            Bundle extras = intent.getExtras();
+            if(extras != null) {
+                Log.i(TAG, "subject: "+extras.getString(Intent.EXTRA_SUBJECT));
+                Log.i(TAG, "text: "+extras.getString(Intent.EXTRA_TEXT));
+            }
+            else{
+                Log.i(TAG, "extra is null");
+            }
+        }
     }
 
     /**

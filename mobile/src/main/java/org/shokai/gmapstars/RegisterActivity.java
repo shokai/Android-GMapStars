@@ -5,17 +5,16 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.android.gms.location.LocationServices;
+
+import java.net.URL;
 
 
 public class RegisterActivity extends Activity implements
@@ -59,11 +58,19 @@ public class RegisterActivity extends Activity implements
 
         Bundle extras = intent.getExtras();
         String subject = extras.getString(Intent.EXTRA_SUBJECT); // 地名
-        Uri uri = GMapUtil.getUriFromIntentText(extras.getString(Intent.EXTRA_TEXT));
-        if(uri == null) return;
+        URL url;
+        try {
+            url = GMapUtil.getUrlFromIntentText(extras.getString(Intent.EXTRA_TEXT));
+        }
+        catch(Exception e){
+            Log.e(TAG, e.getMessage());
+            return;
+        }
+        if(url == null) return;
+
         Log.i(TAG, "地名: "+subject);
-        Log.i(TAG, "URL: "+uri.toString()); // 店名+URL
-        textView.setText(subject+"\n"+uri.toString());
+        Log.i(TAG, "URL: "+url.toString()); // 店名+URL
+        textView.setText(subject+"\n"+url.toString());
     }
 
     /**

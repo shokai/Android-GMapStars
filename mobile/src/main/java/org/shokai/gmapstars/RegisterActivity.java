@@ -5,8 +5,10 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -54,12 +56,12 @@ public class RegisterActivity extends Activity implements
         if(intent != null && intent.getAction().equals(Intent.ACTION_SEND)){
             Log.i(TAG, "intent is action_send");
             Bundle extras = intent.getExtras();
-            if(extras != null) {
-                Log.i(TAG, "subject: "+extras.getString(Intent.EXTRA_SUBJECT)); // 店名
-                Log.i(TAG, "text: "+extras.getString(Intent.EXTRA_TEXT)); // 店名+URL
-            }
-            else{
-                Log.i(TAG, "extra is null");
+            String subject = extras.getString(Intent.EXTRA_SUBJECT); // 店名
+            Uri uri = GMapUtil.getUriFromIntentText(extras.getString(Intent.EXTRA_TEXT));
+            if(uri != null){
+                Log.i(TAG, "店名: "+subject);
+                Log.i(TAG, "URL: "+uri.toString()); // 店名+URL
+
             }
         }
     }

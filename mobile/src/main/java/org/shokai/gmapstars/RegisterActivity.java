@@ -8,6 +8,7 @@ import android.content.IntentSender.SendIntentException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -51,6 +52,8 @@ public class RegisterActivity extends Activity implements
         if (savedInstanceState != null) {
             mIsInResolution = savedInstanceState.getBoolean(KEY_IN_RESOLUTION, false);
         }
+        TextView textView = (TextView) findViewById(R.id.textView);
+
         Intent intent = this.getIntent();
         Log.i(TAG, intent.getAction());
         if(intent != null && intent.getAction().equals(Intent.ACTION_SEND)){
@@ -61,7 +64,7 @@ public class RegisterActivity extends Activity implements
             if(uri != null){
                 Log.i(TAG, "店名: "+subject);
                 Log.i(TAG, "URL: "+uri.toString()); // 店名+URL
-
+                textView.setText(subject+"\n"+uri.toString());
             }
         }
     }

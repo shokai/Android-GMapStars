@@ -15,11 +15,11 @@ import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.android.gms.location.LocationServices;
 
 
-public class GooglePlayServicesActivity extends Activity implements
+public class RegisterActivity extends Activity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-    private static final String TAG = "GooglePlayServicesActivity";
+    private static final String TAG = "MainActivity";
 
     private static final String KEY_IN_RESOLUTION = "is_in_resolution";
 

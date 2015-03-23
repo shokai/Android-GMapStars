@@ -55,18 +55,15 @@ public class RegisterActivity extends Activity implements
         TextView textView = (TextView) findViewById(R.id.textView);
 
         Intent intent = this.getIntent();
-        Log.i(TAG, intent.getAction());
-        if(intent != null && intent.getAction().equals(Intent.ACTION_SEND)){
-            Log.i(TAG, "intent is action_send");
-            Bundle extras = intent.getExtras();
-            String subject = extras.getString(Intent.EXTRA_SUBJECT); // 店名
-            Uri uri = GMapUtil.getUriFromIntentText(extras.getString(Intent.EXTRA_TEXT));
-            if(uri != null){
-                Log.i(TAG, "店名: "+subject);
-                Log.i(TAG, "URL: "+uri.toString()); // 店名+URL
-                textView.setText(subject+"\n"+uri.toString());
-            }
-        }
+        if(intent == null || !intent.getAction().equals(Intent.ACTION_SEND)) return;
+
+        Bundle extras = intent.getExtras();
+        String subject = extras.getString(Intent.EXTRA_SUBJECT); // 地名
+        Uri uri = GMapUtil.getUriFromIntentText(extras.getString(Intent.EXTRA_TEXT));
+        if(uri == null) return;
+        Log.i(TAG, "地名: "+subject);
+        Log.i(TAG, "URL: "+uri.toString()); // 店名+URL
+        textView.setText(subject+"\n"+uri.toString());
     }
 
     /**

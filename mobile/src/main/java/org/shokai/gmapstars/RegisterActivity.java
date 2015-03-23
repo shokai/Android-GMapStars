@@ -45,6 +45,7 @@ public class RegisterActivity extends Activity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
         if (savedInstanceState != null) {
             mIsInResolution = savedInstanceState.getBoolean(KEY_IN_RESOLUTION, false);
         }
@@ -54,8 +55,8 @@ public class RegisterActivity extends Activity implements
             Log.i(TAG, "intent is action_send");
             Bundle extras = intent.getExtras();
             if(extras != null) {
-                Log.i(TAG, "subject: "+extras.getString(Intent.EXTRA_SUBJECT));
-                Log.i(TAG, "text: "+extras.getString(Intent.EXTRA_TEXT));
+                Log.i(TAG, "subject: "+extras.getString(Intent.EXTRA_SUBJECT)); // 店名
+                Log.i(TAG, "text: "+extras.getString(Intent.EXTRA_TEXT)); // 店名+URL
             }
             else{
                 Log.i(TAG, "extra is null");

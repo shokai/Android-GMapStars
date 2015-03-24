@@ -14,8 +14,6 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
-import java.net.URL;
-
 
 public class RegisterActivity extends Activity implements
         GoogleApiClient.ConnectionCallbacks,
@@ -51,26 +49,22 @@ public class RegisterActivity extends Activity implements
         if (savedInstanceState != null) {
             mIsInResolution = savedInstanceState.getBoolean(KEY_IN_RESOLUTION, false);
         }
-        TextView textView = (TextView) findViewById(R.id.textView);
+        final TextView textView = (TextView) findViewById(R.id.textView);
 
         Intent intent = this.getIntent();
         if(intent == null || !intent.getAction().equals(Intent.ACTION_SEND)) return;
+        GMapUtil.getLocation(intent, new GMapUtil.LocationCallback() {
+            @Override
+            public void onSuccess(GMapUtil.Location location) {
+                Log.i("location", location.toString());
+                textView.setText(location.toString());
+            }
 
-        Bundle extras = intent.getExtras();
-        String subject = extras.getString(Intent.EXTRA_SUBJECT); // 地名
-        URL url;
-        try {
-            url = GMapUtil.getUrlFromIntentText(extras.getString(Intent.EXTRA_TEXT));
-        }
-        catch(Exception e){
-            Log.e(TAG, e.getMessage());
-            return;
-        }
-        if(url == null) return;
-
-        Log.i(TAG, "地名: "+subject);
-        Log.i(TAG, "URL: "+url.toString()); // 店名+URL
-        textView.setText(subject+"\n"+url.toString());
+            @Override
+            public void onError(Exception ex) {
+                Log.e(TAG, ex.getMessage());
+            }
+        });
     }
 
     /**

@@ -1,6 +1,8 @@
-// google mapsの短縮URLから緯度経度を調べる
-// AndroidのIntentで得られるURLが対象
-// Web版mapから得られるURLにはcidが無いので無理
+/*
+ * google mapsの短縮URLから緯度経度を調べる
+ * AndroidのIntentで得られるURLが対象
+ * Web版mapから得られるURLにはcidが無いので無理
+ */
 
 package org.shokai.gmapstars.lib;
 

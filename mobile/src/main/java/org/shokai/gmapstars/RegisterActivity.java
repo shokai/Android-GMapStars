@@ -15,9 +15,12 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Result;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.LocationServices;
 
 import org.shokai.gmapstars.lib.GMap;
+import org.shokai.gmapstars.lib.GeofenceManager;
 
 
 public class RegisterActivity extends Activity implements
@@ -47,6 +50,7 @@ public class RegisterActivity extends Activity implements
     private TextView textView;
     private Button buttonAddGeofence, buttonRemoveGeofence;
     private GMap.Location location;
+    private GeofenceManager geofenceManager;
 
     /**
      * Called when the activity is starting. Restores the activity state.
@@ -83,7 +87,13 @@ public class RegisterActivity extends Activity implements
         buttonAddGeofence.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // registerGeofence(location);
+                if(location == null || geofenceManager == null) return;
+                geofenceManager.add(location, new ResultCallback() {
+                    @Override
+                    public void onResult(Result result) {
+                        Toast.makeText(RegisterActivity.this, result.getStatus().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
@@ -108,6 +118,8 @@ public class RegisterActivity extends Activity implements
                     .build();
         }
         mGoogleApiClient.connect();
+
+        geofenceManager = new GeofenceManager(mGoogleApiClient, this);
     }
 
     /**

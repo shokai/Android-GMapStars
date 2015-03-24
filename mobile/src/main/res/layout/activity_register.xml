@@ -8,12 +8,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="緯度経度"
+        android:text="getting Location.."
         android:id="@+id/textView" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register"
-        android:id="@+id/buttonRegister" />
+        android:text="add Geofence"
+        android:id="@+id/buttonAddGefence" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="remove Geofence"
+        android:id="@+id/buttonRemoveGefence" />
 </LinearLayout>

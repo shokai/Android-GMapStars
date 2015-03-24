@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -39,6 +42,10 @@ public class RegisterActivity extends Activity implements
      */
     private boolean mIsInResolution;
 
+    private TextView textView;
+    private Button buttonAddGeofence, buttonRemoveGeofence;
+    private GMapUtil.Location location;
+
     /**
      * Called when the activity is starting. Restores the activity state.
      */
@@ -49,7 +56,11 @@ public class RegisterActivity extends Activity implements
         if (savedInstanceState != null) {
             mIsInResolution = savedInstanceState.getBoolean(KEY_IN_RESOLUTION, false);
         }
-        final TextView textView = (TextView) findViewById(R.id.textView);
+
+        textView = (TextView) findViewById(R.id.textView);
+        buttonAddGeofence = (Button) findViewById(R.id.buttonAddGefence);
+        buttonRemoveGeofence = (Button) findViewById(R.id.buttonRemoveGefence);
+
 
         Intent intent = this.getIntent();
         if(intent == null || !intent.getAction().equals(Intent.ACTION_SEND)) return;
@@ -58,6 +69,7 @@ public class RegisterActivity extends Activity implements
             public void onSuccess(GMapUtil.Location location) {
                 Log.i("location", location.toString());
                 textView.setText(location.toString());
+                RegisterActivity.this.location = location;
             }
 
             @Override
@@ -65,6 +77,14 @@ public class RegisterActivity extends Activity implements
                 Log.e(TAG, ex.getMessage());
             }
         });
+
+        buttonAddGeofence.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // registerGeofence(location);
+            }
+        });
+
     }
 
     /**

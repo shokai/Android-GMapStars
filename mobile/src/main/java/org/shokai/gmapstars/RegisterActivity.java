@@ -17,6 +17,8 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
+import org.shokai.gmapstars.lib.GMap;
+
 
 public class RegisterActivity extends Activity implements
         GoogleApiClient.ConnectionCallbacks,
@@ -44,7 +46,7 @@ public class RegisterActivity extends Activity implements
 
     private TextView textView;
     private Button buttonAddGeofence, buttonRemoveGeofence;
-    private GMapUtil.Location location;
+    private GMap.Location location;
 
     /**
      * Called when the activity is starting. Restores the activity state.
@@ -64,9 +66,9 @@ public class RegisterActivity extends Activity implements
 
         Intent intent = this.getIntent();
         if(intent == null || !intent.getAction().equals(Intent.ACTION_SEND)) return;
-        GMapUtil.getLocation(intent, new GMapUtil.LocationCallback() {
+        GMap.getLocation(intent, new GMap.LocationCallback() {
             @Override
-            public void onSuccess(GMapUtil.Location location) {
+            public void onSuccess(GMap.Location location) {
                 Log.i("location", location.toString());
                 textView.setText(location.toString());
                 RegisterActivity.this.location = location;

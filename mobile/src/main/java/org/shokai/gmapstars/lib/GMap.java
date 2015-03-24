@@ -2,7 +2,7 @@
 // AndroidのIntentで得られるURLが対象
 // Web版mapから得られるURLにはcidが無いので無理
 
-package org.shokai.gmapstars;
+package org.shokai.gmapstars.lib;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -16,9 +16,9 @@ import java.net.HttpURLConnection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class GMapUtil {
+public class GMap {
 
-    public static final String TAG = "GMapUtil";
+    public static final String TAG = "GMap";
 
     public static class Location{
         public double latitude;

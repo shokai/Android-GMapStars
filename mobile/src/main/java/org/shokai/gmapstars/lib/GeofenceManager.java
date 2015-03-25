@@ -27,8 +27,9 @@ public class GeofenceManager {
 
     public void add(GMap.Location location, ResultCallback callback){
         Log.i(TAG, "add " + location.toString());
+        String id = location.url.toString()+"\t"+location.name;
         Geofence fence = new Geofence.Builder()
-                .setRequestId(location.url.toString())
+                .setRequestId(id)
                 .setCircularRegion( // 500メートル以内
                         location.latitude, location.longitude, 500)
                 .setExpirationDuration( // 期限を指定できる
@@ -43,9 +44,7 @@ public class GeofenceManager {
                 .build();
 
         // IntentServiceで受け取る
-        Intent intent = new Intent(context, GeofenceReceiveService.class)
-                .putExtra("URL", location.url.toString())
-                .putExtra("NAME", location.name);
+        Intent intent = new Intent(context, GeofenceReceiveService.class);
 
         PendingIntent pIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 

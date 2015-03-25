@@ -15,6 +15,9 @@ import com.google.android.gms.identity.intents.AddressConstants;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
@@ -39,15 +42,19 @@ public class GeofenceReceiveService extends IntentService {
             Bundle extras = intent.getExtras();
 
             String id = fence.getRequestId();
-            String url = extras.getString("URL");
-            String name = extras.getString("NAME");
-            switch (transition){
-                case Geofence.GEOFENCE_TRANSITION_ENTER:
-                    Log.i("TAG", name+" "+url);
-                    sendNotification(Uri.parse(id), name);
-                    break;
-                case Geofence.GEOFENCE_TRANSITION_EXIT:
-                    break;
+            Matcher m = Pattern.compile("^([^\\t]+)\\t([^\\t]+)$").matcher(id);
+            if(m.find()){
+                Uri uri = Uri.parse(m.group(1));
+                String name = m.group(2);
+                switch (transition) {
+                    case Geofence.GEOFENCE_TRANSITION_ENTER:
+                        Log.i("TAG", uri.toString()+" "+name);
+                        sendNotification(uri, name);
+                        break;
+                    case Geofence.GEOFENCE_TRANSITION_EXIT:
+                        break;
+                }
+
             }
         }
     }
@@ -61,7 +68,7 @@ public class GeofenceReceiveService extends IntentService {
 
         Notification notif = new NotificationCompat.Builder(this)
                 .setContentTitle("GMap Stars")
-                .setContentText(name+"が近いです")
+                .setContentText(name+"が近くにあります")
                 .setSmallIcon(android.R.drawable.btn_default_small)
                 .addAction(android.R.drawable.ic_dialog_map, "Mapを開く", pIntent)
                 .build();

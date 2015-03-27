@@ -39,7 +39,6 @@ public class GeofenceManager {
                 .build();
 
         GeofencingRequest request = new GeofencingRequest.Builder()
-                .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
                 .addGeofence(fence) // Geofenceを1つ登録
                 .build();
 

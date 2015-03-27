@@ -84,6 +84,7 @@ public class RegisterActivity extends Activity implements
             }
         });
 
+        // Geofenceを登録する
         buttonAddGeofence.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

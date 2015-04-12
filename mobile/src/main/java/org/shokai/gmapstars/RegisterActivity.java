@@ -23,7 +23,7 @@ public class RegisterActivity extends Activity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "RegisterActivity";
 
     private GoogleApiClient mGoogleApiClient;
 
